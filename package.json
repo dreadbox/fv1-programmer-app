@@ -1,0 +1,30 @@
+{
+	"name": "fv1-programmer",
+	"private": true,
+	"version": "0.0.1",
+	"type": "module",
+	"scripts": {
+		"dev": "vite dev",
+		"build": "vite build",
+		"preview": "vite preview"
+	},
+	"devDependencies": {
+		"@iconify/svelte": "^5.0.0",
+		"@sveltejs/adapter-static": "^3.0.8",
+		"@sveltejs/kit": "^2.16.0",
+		"@sveltejs/vite-plugin-svelte": "^5.0.0",
+		"@tailwindcss/vite": "^4.0.0",
+		"bits-ui": "^2.8.8",
+		"clsx": "^2.1.1",
+		"svelte": "^5.34.7",
+		"svelte-check": "^4.0.0",
+		"tailwind-merge": "^3.3.1",
+		"tailwind-variants": "^1.0.0",
+		"tailwindcss": "^4.1.10",
+		"typescript": "^5.8.3",
+		"vite": "^6.2.6"
+	},
+	"dependencies": {
+		"mode-watcher": "^1.1.0"
+	}
+}
