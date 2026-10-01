@@ -43,6 +43,13 @@ npm run dev     # http://localhost:5173
 A static production build (`npm run build`) lands in `build/` and is served
 as-is by any static host -- no server runtime required.
 
+## Deployment
+
+GitHub Actions deploys the static build to GitHub Pages on every push to
+`main`. In the repository settings, set **Pages → Build and deployment →
+Source** to **GitHub Actions**. The workflow builds with the project-page base
+path; local development and other static hosts continue to use the root path.
+
 ## Project layout
 
 ```
