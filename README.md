@@ -20,7 +20,7 @@ over USB -- all without any native install.
 
 - **8 program slots** (512 B each, 4 KB total) representing the FV-1's
   EEPROM layout. Pick a `.bin`/`.hex`/`.fv1` file per slot; the programmer
-  EEPROM is written as the concatenated, zero-padded image.
+  EEPROM is written with each program at its fixed slot offset (empty slots zeroed).
 - **Auto-populate on connect.** When you click Connect, the app reads the
   current EEPROM and fills the slot grid with whatever is on the device
   (`Program 0`, `Program 1`, ...) -- you see exactly what's loaded the

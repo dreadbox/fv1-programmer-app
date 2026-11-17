@@ -312,31 +312,36 @@ export async function readEEPROM(
 
 // ----- pure utilities (no I/O) -----------------------------------------
 
-export function concatenateAndPad(files: { name: string; data: Uint8Array }[]): {
+/**
+ * Build a full EEPROM image with each program at its fixed slot offset
+ * (index * PROGRAM_SIZE). Empty slots and unused tail bytes are zero-filled.
+ */
+export function buildEEPROMImage(slots: (Uint8Array | null)[]): {
 	success: boolean;
 	data?: Uint8Array;
 	message: string;
-	totalSize: number;
 } {
-	const totalSize = files.reduce((sum, f) => sum + f.data.length, 0);
-	if (totalSize > EEPROM_SIZE) {
-		return {
-			success: false,
-			message: `Total size (${totalSize} bytes) exceeds EEPROM capacity (${EEPROM_SIZE} bytes)`,
-			totalSize
-		};
+	if (slots.length > PROGRAM_COUNT) {
+		return { success: false, message: `Too many slots (${slots.length}, max ${PROGRAM_COUNT})` };
 	}
 	const result = new Uint8Array(EEPROM_SIZE);
-	let offset = 0;
-	for (const file of files) {
-		result.set(file.data, offset);
-		offset += file.data.length;
+	let count = 0;
+	for (let i = 0; i < slots.length; i++) {
+		const data = slots[i];
+		if (!data) continue;
+		if (data.length > PROGRAM_SIZE) {
+			return {
+				success: false,
+				message: `Slot ${i} is ${data.length} bytes, max ${PROGRAM_SIZE}`
+			};
+		}
+		result.set(data, i * PROGRAM_SIZE);
+		count++;
 	}
 	return {
 		success: true,
 		data: result,
-		message: `${totalSize} bytes loaded, padded to ${EEPROM_SIZE} bytes`,
-		totalSize
+		message: `${count} program${count === 1 ? '' : 's'} placed in ${EEPROM_SIZE}-byte image`
 	};
 }
 

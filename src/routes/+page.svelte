@@ -14,7 +14,7 @@
 		writeEEPROM,
 		readEEPROM,
 		copyToTarget,
-		concatenateAndPad,
+		buildEEPROMImage,
 		downloadBlob,
 		splitEEPROMIntoPrograms,
 		buildZip,
@@ -213,12 +213,7 @@
 			return;
 		}
 
-		// Build ordered array from slots (preserving slot order, skipping empty)
-		const programsInOrder = slots
-			.map((slot, index) => (slot ? { ...slot, slotIndex: index } : null))
-			.filter((s) => s !== null) as { name: string; size: number; data: Uint8Array; slotIndex: number }[];
-
-		const result = concatenateAndPad(programsInOrder);
+		const result = buildEEPROMImage(slots.map((s) => s?.data ?? null));
 		if (!result.success || !result.data) {
 			setMessage(result.message, 'error');
 			return;

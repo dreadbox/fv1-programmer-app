@@ -116,7 +116,7 @@ Web Serial API only works in **Chrome, Edge, or Opera**. Firefox and Safari are 
 - `verifyDevice()` - Sends 'I' command, checks for FV1_PROGRAMMER response
 - `writeEEPROM()` - Sends 'W' + data in 64-byte chunks
 - `readEEPROM()` - Sends 'R', reads 4096 bytes
-- `concatenateAndPad()` - Combines multiple .fv1 files, pads to 4KB
+- `buildEEPROMImage()` - Places each slot at its fixed 512-byte offset in a 4KB image
 
 **`src/app.css`** - Design tokens and global styles
 - Uses OKLch color space for theme colors
